@@ -5,7 +5,7 @@
   },
   "music_links": [
     {
-      "title": "YouTube (Latest Video)",
+      "title": "YouTube",
       "url": "https://youtu.be/KlBKKDzdbzk?si=FFrJTeA2_DEdGCIg"
     }
   ],
@@ -16,13 +16,19 @@
     },
     {
       "title": "Facebook",
-      "url": "https://www.facebook.com/realmeda/"
+      "url": "https://www.facebook.com/realmeda/?ref=pro_upsell_xav_ig_profile_page_web"
     }
   ],
   "updates": [
     {
-      "title": "AllMyLinks temporarily disabled",
-      "text": "AllMyLinks redirect links are showing 404 in the in-app browser. We’ll swap back once we have clean working links."
+      "title": "New drop soon",
+      "text": "Stay tuned. This is the official place for updates."
     }
-  ]
+  ],
+  "feedback": {
+    "enabled": true,
+    "email_to": "soliddreamz@gamil.com",
+    "subject": "Meda Monsta App Feedback (Pilot 4)",
+    "body_hint": "Type your feedback below. Include a screenshot link if needed."
+  }
 }
