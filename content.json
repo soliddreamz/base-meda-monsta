@@ -4,14 +4,29 @@
     "tagline": "Official app — music, merch, and updates."
   },
   "music_links": [
-    { "title": "Listen on Spotify", "url": "https://example.com" },
-    { "title": "Listen on Apple Music", "url": "https://example.com" },
-    { "title": "YouTube", "url": "https://example.com" }
+    {
+      "title": "Listen on Spotify",
+      "url": "https://allmylinks.com/609meda"
+    },
+    {
+      "title": "Listen on Apple Music",
+      "url": "https://allmylinks.com/609meda"
+    },
+    {
+      "title": "YouTube",
+      "url": "https://youtu.be/KlBKKDzdbzk"
+    }
   ],
   "merch_links": [
-    { "title": "Shop Merch", "url": "https://example.com" }
+    {
+      "title": "Shop Merch",
+      "url": "https://allmylinks.com/609meda"
+    }
   ],
   "updates": [
-    { "title": "New drop soon", "text": "Stay tuned. This is the official place for updates." }
+    {
+      "title": "New drop soon",
+      "text": "Follow Meda Monsta on Instagram and Facebook for updates."
+    }
   ]
 }
