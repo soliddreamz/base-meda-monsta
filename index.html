@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>DJ Alamo — Official App</title>
+<title>Meda Monsta — Official App</title>
 <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3b82f6" />
 
 <style>
   :root{
@@ -26,9 +27,8 @@
     font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     text-align:center;
     padding:18px 14px 22px;
-    -webkit-text-size-adjust: 100%;
   }
-  .wrap{ max-width:500px; margin:0 auto; }
+  .wrap{ max-width:520px; margin:0 auto; }
   .card{
     background:var(--card);
     border:1px solid var(--stroke);
@@ -38,15 +38,15 @@
     backdrop-filter: blur(10px);
   }
   .logo{
-    width:min(240px, 82vw);
+    width:min(180px, 60vw);
     height:auto;
     display:block;
-    margin:2px auto 8px;
+    margin:6px auto 10px;
     border-radius:18px;
   }
   .title{
     margin:6px 0 4px;
-    font-size:18px;
+    font-size:22px;
     font-weight:900;
     letter-spacing:0.2px;
   }
@@ -87,131 +87,60 @@
   .section{ display:none; text-align:left; }
   .section.active{ display:block; }
 
-  .row{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-  button.primary{
-    appearance:none;
-    border:none;
-    border-radius:14px;
-    padding:13px 14px;
-    min-width:150px;
-    font-size:15px;
-    font-weight:900;
-    color:white;
-    background:linear-gradient(135deg,var(--btn1),var(--btn2));
-    box-shadow:0 10px 28px rgba(59,130,246,0.35);
-    cursor:pointer;
-  }
-  button.secondary{
-    appearance:none;
-    border-radius:14px;
-    padding:13px 14px;
-    min-width:150px;
-    font-size:15px;
-    font-weight:900;
-    color:white;
-    background:linear-gradient(135deg,#172554,#0b1220);
-    box-shadow:none;
-    border:1px solid rgba(255,255,255,0.10);
-    cursor:pointer;
-  }
-  button:disabled{ opacity:0.45; cursor:not-allowed; }
-  button:active{ transform:scale(0.98); }
-
-  .playerCard{
+  .panel{
     margin-top:10px;
     border:1px solid rgba(255,255,255,0.10);
     background:rgba(0,0,0,0.16);
     border-radius:18px;
     padding:12px;
   }
-  .nowPlaying{
-    display:flex;
-    gap:10px;
+
+  .row{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+  a.btn{
+    text-decoration:none;
+    display:inline-flex;
     align-items:center;
-  }
-  .cover{
-    width:56px; height:56px;
+    justify-content:center;
     border-radius:14px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.10);
-    overflow:hidden;
-    flex:0 0 auto;
-  }
-  .cover img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .npText{ flex:1; min-width:0; }
-  .npTitle{
+    padding:13px 14px;
+    min-width:170px;
+    font-size:15px;
     font-weight:900;
-    font-size:14px;
-    margin:0;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    color:white;
+    background:linear-gradient(135deg,var(--btn1),var(--btn2));
+    box-shadow:0 10px 28px rgba(59,130,246,0.35);
   }
-  .npMeta{
-    margin-top:2px;
-    font-size:12px;
-    color:rgba(234,241,255,0.70);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+  a.btn.secondary{
+    background:linear-gradient(135deg,#172554,#0b1220);
+    border:1px solid rgba(255,255,255,0.10);
+    box-shadow:none;
   }
-  audio{
-    width:100%;
-    margin-top:10px;
-    border-radius:14px;
-  }
+  a.btn:active{ transform:scale(0.98); }
 
   .list{
-    margin-top:12px;
+    margin-top:10px;
     display:grid;
     gap:10px;
   }
-  .track{
+  .item{
     display:flex;
-    gap:10px;
     align-items:center;
+    justify-content:space-between;
+    gap:10px;
     padding:12px;
     border-radius:18px;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.10);
-    cursor:pointer;
-    user-select:none;
-
-    width:100%;
-    min-width:0;
-    overflow:hidden;
   }
-  .track:active{ transform:scale(0.99); }
-  .track .tCover{
-    width:46px; height:46px;
-    border-radius:14px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.10);
-    overflow:hidden;
-    flex:0 0 auto;
-    display:grid;
-    place-items:center;
-    color:rgba(234,241,255,0.70);
-    font-weight:900;
-    font-size:14px;
-  }
-  .track .tCover img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .track .tText{ flex:1; min-width:0; }
-  .track .tTitle{
+  .itemTitle{
     font-weight:900;
     font-size:14px;
     margin:0;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
   }
-  .track .tSub{
+  .itemSub{
     margin-top:2px;
     font-size:12px;
     color:rgba(234,241,255,0.70);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
   }
   .pill{
     font-size:11px;
@@ -222,46 +151,6 @@
     background:rgba(0,0,0,0.18);
     color:rgba(234,241,255,0.82);
     flex:0 0 auto;
-  }
-
-  .adSlot{
-    margin-top:12px;
-    border-radius:18px;
-    border:1px dashed rgba(255,255,255,0.22);
-    background:rgba(0,0,0,0.14);
-    padding:12px;
-    text-align:center;
-  }
-  .adLabel{
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:0.6px;
-    color:rgba(234,241,255,0.60);
-    text-transform:uppercase;
-    margin-bottom:8px;
-  }
-  .adInner{
-    border-radius:14px;
-    padding:12px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.10);
-    color:rgba(234,241,255,0.80);
-    font-size:13px;
-    line-height:1.3;
-  }
-
-  .status{
-    margin-top:10px;
-    color:rgba(234,241,255,0.72);
-    font-size:13px;
-    min-height:18px;
-    text-align:center;
-  }
-  .mini{
-    font-size:11px;
-    color:rgba(234,241,255,0.55);
-    text-align:center;
-    margin-top:10px;
   }
 
   .badge{
@@ -279,16 +168,18 @@
   }
   .dot{ width:8px; height:8px; border-radius:999px; background:var(--good); display:inline-block; }
 
-  .noteBox{
-    margin-top:10px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,0.10);
-    background:rgba(0,0,0,0.14);
-    padding:12px;
-    text-align:center;
-    color:rgba(234,241,255,0.78);
+  .status{
+    margin-top:12px;
+    color:rgba(234,241,255,0.72);
     font-size:13px;
-    line-height:1.35;
+    min-height:18px;
+    text-align:center;
+  }
+  .mini{
+    font-size:11px;
+    color:rgba(234,241,255,0.55);
+    text-align:center;
+    margin-top:10px;
   }
 
   body::after{
@@ -310,338 +201,156 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <img src="dj-alamo.png" class="logo" alt="DJ Alamo logo" onerror="this.style.display='none';" />
+      <!-- Optional logo: put a file in /assets/ called logo.png -->
+      <img src="assets/logo.png" class="logo" alt="Meda Monsta logo"
+           onerror="this.style.display='none';" />
 
-      <div class="title">DJ Alamo</div>
-      <div class="desc">
-        Official app — mixes, drops, and exclusives. No algorithm. Just the music.
-      </div>
+      <div class="title" id="titleText">Meda Monsta</div>
+      <div class="desc" id="taglineText">Official app — music, merch, and updates.</div>
 
+      <!-- Pilot badge (NO Base branding per Pilot 4 scope) -->
       <div class="row" style="margin-bottom:8px;">
-        <div class="badge"><span class="dot"></span> Pilot • Powered by Base</div>
+        <div class="badge"><span class="dot"></span> Pilot 4</div>
       </div>
 
       <div class="tabs">
         <button class="tabBtn active" data-tab="home">Home</button>
-        <button class="tabBtn" data-tab="listen">Listen</button>
-        <button class="tabBtn" data-tab="about">About</button>
+        <button class="tabBtn" data-tab="music">Music</button>
+        <button class="tabBtn" data-tab="merch">Merch</button>
+        <button class="tabBtn" data-tab="updates">Updates</button>
       </div>
 
       <div id="tab-home" class="section active">
-        <div class="row" style="margin-top:6px;">
-          <button id="goListen" class="primary">▶ Start Listening</button>
-          <button id="goSite" class="secondary">🌐 Visit DJAlamo.com</button>
-          <button id="installBtn" class="secondary" style="display:none;">➕ Install App</button>
-        </div>
-
-        <div class="playerCard" style="margin-top:12px;">
-          <div style="font-weight:900; font-size:14px; text-align:center;">What this is</div>
-          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35; text-align:center;">
-            This is DJ Alamo’s space. Fans come direct. Ads are optional and kept light.
-          </div>
-        </div>
-
-        <div class="adSlot">
-          <div class="adLabel">Ad</div>
-          <div class="adInner">
-            Pilot Ad Slot (Banner).<br/>
-            Brand-safe only. No tracking of personal fan data.
-          </div>
-        </div>
-      </div>
-
-      <div id="tab-listen" class="section">
-        <div class="playerCard">
-          <div class="nowPlaying">
-            <div class="cover">
-              <img id="npCoverImg" src="" alt="" style="display:none;" />
-              <div id="npCoverFallback" style="display:grid; place-items:center; width:100%; height:100%; font-weight:900; color:rgba(234,241,255,0.75);">DJ</div>
-            </div>
-            <div class="npText">
-              <p class="npTitle" id="npTitle">Select a track</p>
-              <div class="npMeta" id="npMeta">Ready.</div>
-            </div>
-            <span class="pill" id="npPill">V2</span>
-          </div>
-
-          <audio id="audio" controls preload="none"></audio>
-
-          <div class="row" style="margin-top:10px;">
-            <button id="prevBtn" class="secondary" disabled>⏮ Prev</button>
-            <button id="nextBtn" class="primary" disabled>Next ⏭</button>
-          </div>
-
-          <div id="externalHint" class="noteBox" style="display:none;">
-            This mix is hosted on LiveMixtapes.<br/>
-            Tap <b>Open Mix</b> to listen.
-            <div class="row" style="margin-top:10px;">
-              <button id="openExternalBtn" class="primary">🔗 Open Mix</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="adSlot">
-          <div class="adLabel">Ad</div>
-          <div class="adInner">
-            Pilot Banner Slot — replace with sponsor image later.
-          </div>
-        </div>
-
-        <div class="list" id="trackList" aria-label="Track list"></div>
-      </div>
-
-      <div id="tab-about" class="section">
-        <div class="playerCard">
-          <div style="font-weight:900; font-size:14px; text-align:center;">DJ Alamo</div>
-          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35; text-align:center;">
-            <b>You’re in one of the best DJ apps you can get.</b><br/>
-            Built by Brooklyn-born DJ Alamo, whose career spans college tours, radio, and major live events across the East Coast. No algorithm — just experience, timing, and real connection.
+        <div class="panel" style="text-align:center;">
+          <div style="font-weight:900; font-size:14px;">This is the official place.</div>
+          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35;">
+            One direct home for Meda — no accounts, no tracking, no feed.
           </div>
           <div class="row" style="margin-top:10px;">
-            <span class="pill">No algorithm</span>
-            <span class="pill">Direct to fans</span>
-            <span class="pill">Artist-owned feel</span>
-          </div>
-        </div>
-
-        <div class="playerCard" style="margin-top:12px;">
-          <div style="font-weight:900; font-size:14px; text-align:center;">Ads</div>
-          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35; text-align:center;">
-            Ads are optional. For this pilot we keep them light and brand-safe.
+            <a class="btn" href="#" id="goMusic">🎵 Open Music</a>
+            <a class="btn secondary" href="#" id="goMerch">🛍️ Open Merch</a>
           </div>
         </div>
       </div>
 
-      <div id="status" class="status">Ready.</div>
-      <div class="mini">V2 Pilot • No fan accounts • No uploads</div>
+      <div id="tab-music" class="section">
+        <div class="panel">
+          <div style="font-weight:900; font-size:14px; text-align:center;">Music</div>
+          <div class="list" id="musicList"></div>
+        </div>
+      </div>
+
+      <div id="tab-merch" class="section">
+        <div class="panel">
+          <div style="font-weight:900; font-size:14px; text-align:center;">Merch</div>
+          <div class="list" id="merchList"></div>
+        </div>
+      </div>
+
+      <div id="tab-updates" class="section">
+        <div class="panel">
+          <div style="font-weight:900; font-size:14px; text-align:center;">Updates</div>
+          <div class="list" id="updatesList"></div>
+        </div>
+      </div>
+
+      <div id="status" class="status">Loading…</div>
+      <div class="mini">Pilot 4 • No logins • No tracking • Links + simple sections</div>
     </div>
   </div>
 
 <script>
-const statusEl = document.getElementById('status');
-const tabs = document.querySelectorAll('.tabBtn');
-const sections = {
-  home: document.getElementById('tab-home'),
-  listen: document.getElementById('tab-listen'),
-  about: document.getElementById('tab-about')
-};
+  const statusEl = document.getElementById('status');
+  const tabs = document.querySelectorAll('.tabBtn');
+  const sections = {
+    home: document.getElementById('tab-home'),
+    music: document.getElementById('tab-music'),
+    merch: document.getElementById('tab-merch'),
+    updates: document.getElementById('tab-updates')
+  };
 
-const goListenBtn = document.getElementById('goListen');
-const goSiteBtn = document.getElementById('goSite');
-const installBtn = document.getElementById('installBtn');
+  function setStatus(t){ statusEl.textContent = t; }
+  function showTab(tab){
+    tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    Object.keys(sections).forEach(k => sections[k].classList.toggle('active', k === tab));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-const audio = document.getElementById('audio');
-const trackListEl = document.getElementById('trackList');
-const npTitle = document.getElementById('npTitle');
-const npMeta = document.getElementById('npMeta');
-const npPill = document.getElementById('npPill');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
+  tabs.forEach(btn => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
+  document.getElementById('goMusic').addEventListener('click', (e) => { e.preventDefault(); showTab('music'); });
+  document.getElementById('goMerch').addEventListener('click', (e) => { e.preventDefault(); showTab('merch'); });
 
-const npCoverImg = document.getElementById('npCoverImg');
-const npCoverFallback = document.getElementById('npCoverFallback');
+  function escapeHtml(s){
+    return String(s || '')
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'","&#039;");
+  }
 
-const externalHint = document.getElementById('externalHint');
-const openExternalBtn = document.getElementById('openExternalBtn');
-
-let tracks = [];
-let currentIndex = -1;
-let deferredPrompt = null;
-let currentExternalUrl = null;
-
-function setStatus(t){ statusEl.textContent = t; }
-
-/* Pilot 3 template fix: iOS PWA "return from external" repaint kick */
-function forceRepaintKick(){
-  try{
-    const el = document.documentElement;
-    el.style.webkitTransform = 'translateZ(0)';
-    void el.offsetHeight;
-    requestAnimationFrame(() => { el.style.webkitTransform = ''; });
-  }catch(e){}
-}
-window.addEventListener('pageshow', forceRepaintKick);
-window.addEventListener('focus', forceRepaintKick);
-document.addEventListener('visibilitychange', () => {
-  if(!document.hidden) forceRepaintKick();
-});
-
-function showTab(tab){
-  tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  Object.keys(sections).forEach(k => sections[k].classList.toggle('active', k === tab));
-}
-
-tabs.forEach(btn => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
-goListenBtn.addEventListener('click', () => showTab('listen'));
-
-/* NEW: Official site link (same-tab) */
-goSiteBtn.addEventListener('click', () => {
-  window.location.assign('https://djalamo.com');
-});
-
-prevBtn.addEventListener('click', () => {
-  if(tracks.length < 1) return;
-  const next = (currentIndex <= 0) ? tracks.length - 1 : currentIndex - 1;
-  openIndex(next);
-});
-nextBtn.addEventListener('click', () => {
-  if(tracks.length < 1) return;
-  const next = (currentIndex >= tracks.length - 1) ? 0 : currentIndex + 1;
-  openIndex(next);
-});
-
-audio.addEventListener('ended', () => {
-  if(tracks.length > 1) nextBtn.click();
-});
-
-openExternalBtn.addEventListener('click', () => {
-  if(!currentExternalUrl) return;
-  window.location.assign(currentExternalUrl);
-});
-
-function escapeHtml(s){
-  return String(s || '')
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'","&#039;");
-}
-
-function renderTracks(){
-  trackListEl.innerHTML = '';
-  tracks.forEach((t, i) => {
-    const item = document.createElement('div');
-    item.className = 'track';
-    item.setAttribute('role','button');
-    item.setAttribute('tabindex','0');
-
-    const isExternal = !!t.external;
-    const coverHtml = t.cover
-      ? `<img src="${escapeHtml(t.cover)}" alt="" />`
-      : `<div style="display:grid;place-items:center;width:100%;height:100%;">${isExternal ? '🔗' : '▶'}</div>`;
-
-    item.innerHTML = `
-      <div class="tCover">${coverHtml}</div>
-      <div class="tText">
-        <p class="tTitle">${escapeHtml(t.title || 'Untitled')}</p>
-        <div class="tSub">${escapeHtml(t.subtitle || (isExternal ? 'External link' : ''))}</div>
-      </div>
-      <span class="pill">${escapeHtml(t.tag || (isExternal ? 'Open' : 'Play'))}</span>
-    `;
-
-    item.addEventListener('click', () => openIndex(i));
-    item.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') openIndex(i);
+  function renderLinks(listEl, items, pillText){
+    listEl.innerHTML = '';
+    (items || []).forEach((x) => {
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.innerHTML = `
+        <div>
+          <div class="itemTitle">${escapeHtml(x.title || 'Link')}</div>
+          <div class="itemSub">${escapeHtml(x.url || '')}</div>
+        </div>
+        <a class="pill" href="${escapeHtml(x.url || '#')}" target="_blank" rel="noopener noreferrer">${escapeHtml(pillText)}</a>
+      `;
+      listEl.appendChild(row);
     });
-
-    trackListEl.appendChild(item);
-  });
-
-  if(tracks.length){
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
-    setStatus('Ready. Pick a mix.');
-  }else{
-    setStatus('No tracks found. Add tracks to content.json.');
-  }
-}
-
-function resetPlayerForExternal(url){
-  try{ audio.pause(); }catch(e){}
-  audio.removeAttribute('src');
-  audio.load();
-  audio.style.display = 'none';
-
-  currentExternalUrl = url || null;
-  externalHint.style.display = 'block';
-  npMeta.textContent = 'External mix (LiveMixtapes).';
-  setStatus('Tap Open Mix.');
-}
-
-function resetPlayerForAudio(){
-  externalHint.style.display = 'none';
-  currentExternalUrl = null;
-  audio.style.display = 'block';
-}
-
-function setNowPlaying(t){
-  npTitle.textContent = t.title || 'Untitled';
-  npMeta.textContent = t.subtitle || 'Ready.';
-  npPill.textContent = (t.tag || 'V2');
-
-  if(t.cover){
-    npCoverImg.src = t.cover;
-    npCoverImg.style.display = 'block';
-    npCoverFallback.style.display = 'none';
-  }else{
-    npCoverImg.style.display = 'none';
-    npCoverImg.src = '';
-    npCoverFallback.style.display = 'grid';
-  }
-}
-
-function openIndex(i){
-  const t = tracks[i];
-  if(!t) return;
-
-  currentIndex = i;
-  showTab('listen');
-  setNowPlaying(t);
-
-  if(!!t.external){
-    resetPlayerForExternal(t.url);
-    return;
   }
 
-  resetPlayerForAudio();
-  audio.src = t.url;
-
-  audio.play().then(() => {
-    setStatus('Playing.');
-  }).catch(() => {
-    setStatus('Tap play to start audio (browser policy).');
-  });
-}
-
-async function loadContent(){
-  try{
-    setStatus('Loading…');
-    const res = await fetch('content.json', { cache: 'no-store' });
-    if(!res.ok) throw new Error('content.json not found');
-    const json = await res.json();
-    tracks = Array.isArray(json.tracks) ? json.tracks : [];
-    renderTracks();
-    setStatus('Ready.');
-  }catch(err){
-    console.error(err);
-    setStatus('Could not load content.json. Make sure it exists in the same folder.');
+  function renderUpdates(listEl, items){
+    listEl.innerHTML = '';
+    (items || []).forEach((u) => {
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.innerHTML = `
+        <div>
+          <div class="itemTitle">${escapeHtml(u.title || 'Update')}</div>
+          <div class="itemSub">${escapeHtml(u.text || '')}</div>
+        </div>
+        <span class="pill">New</span>
+      `;
+      listEl.appendChild(row);
+    });
   }
-}
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = 'inline-block';
-});
+  async function loadContent(){
+    try{
+      setStatus('Loading…');
+      const res = await fetch('content.json', { cache: 'no-store' });
+      if(!res.ok) throw new Error('content.json not found');
+      const json = await res.json();
 
-installBtn.addEventListener('click', async () => {
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  try{ await deferredPrompt.userChoice; }catch(e){}
-  deferredPrompt = null;
-  installBtn.style.display = 'none';
-});
+      const profile = json.profile || {};
+      document.getElementById('titleText').textContent = profile.name || 'Meda Monsta';
+      document.getElementById('taglineText').textContent = profile.tagline || 'Official app — music, merch, and updates.';
 
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-  });
-}
+      renderLinks(document.getElementById('musicList'), json.music_links, 'Open');
+      renderLinks(document.getElementById('merchList'), json.merch_links, 'Open');
+      renderUpdates(document.getElementById('updatesList'), json.updates);
 
-showTab('home');
-loadContent();
-setStatus('Ready.');
+      setStatus('Ready.');
+    }catch(err){
+      console.error(err);
+      setStatus('Could not load content.json. Make sure it exists in the same folder.');
+    }
+  }
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+    });
+  }
+
+  showTab('home');
+  loadContent();
 </script>
 </body>
 </html>
