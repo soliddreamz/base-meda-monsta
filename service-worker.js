@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pilot4-meda-v9';
+const CACHE_VERSION = 'pilot4-meda-v11';
 const CACHE_NAME = `base-cache-${CACHE_VERSION}`;
 
 const ASSETS = [
@@ -7,7 +7,6 @@ const ASSETS = [
   './content.json',
   './manifest.json',
   './service-worker.js',
-  './assets/.keep',
   './assets/logo.png',
   './assets/icon-192.png',
   './assets/icon-512.png'
@@ -15,15 +14,17 @@ const ASSETS = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : Promise.resolve())))
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then((keys) => Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : Promise.resolve()))))
+      .then(() => self.clients.claim())
   );
 });
 
