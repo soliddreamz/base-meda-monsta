@@ -93,10 +93,11 @@
     background:rgba(0,0,0,0.16);
     border-radius:18px;
     padding:12px;
+    overflow:hidden; /* LOCK: prevents inner pills from bleeding outside */
   }
 
   .row{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-  a.btn{
+  a.btn, button.btn{
     text-decoration:none;
     display:inline-flex;
     align-items:center;
@@ -107,15 +108,17 @@
     font-size:15px;
     font-weight:900;
     color:white;
+    border:none;
+    cursor:pointer;
     background:linear-gradient(135deg,var(--btn1),var(--btn2));
     box-shadow:0 10px 28px rgba(59,130,246,0.35);
   }
-  a.btn.secondary{
+  a.btn.secondary, button.btn.secondary{
     background:linear-gradient(135deg,#172554,#0b1220);
     border:1px solid rgba(255,255,255,0.10);
     box-shadow:none;
   }
-  a.btn:active{ transform:scale(0.98); }
+  a.btn:active, button.btn:active{ transform:scale(0.98); }
 
   .list{
     margin-top:10px;
@@ -131,7 +134,10 @@
     border-radius:18px;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.10);
-    overflow:hidden; /* lock pill inside card */
+    overflow:hidden; /* LOCK: stop pill overlap */
+  }
+  .itemLeft{
+    min-width:0; /* LOCK: allows text to shrink instead of pushing pill out */
   }
   .itemTitle{
     font-weight:900;
@@ -142,18 +148,22 @@
     margin-top:2px;
     font-size:12px;
     color:rgba(234,241,255,0.70);
-    word-break:break-word;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    max-width:100%;
   }
   .pill{
     font-size:11px;
     font-weight:900;
-    padding:6px 8px;
+    padding:6px 10px;
     border-radius:999px;
     border:1px solid rgba(255,255,255,0.10);
     background:rgba(0,0,0,0.18);
     color:rgba(234,241,255,0.82);
     flex:0 0 auto;
-    text-decoration:underline;
+    white-space:nowrap;
+    text-decoration:none;
   }
 
   .badge{
@@ -208,7 +218,7 @@
            onerror="this.style.display='none';" />
 
       <div class="title" id="titleText">Meda Monsta</div>
-      <div class="desc" id="taglineText">Official app — music, merch, and updates.</div>
+      <div class="desc" id="taglineText">Official app — music, updates, and direct links.</div>
 
       <div class="row" style="margin-bottom:8px;">
         <div class="badge"><span class="dot"></span> Pilot 4</div>
@@ -217,7 +227,8 @@
       <div class="tabs">
         <button class="tabBtn active" data-tab="home">Home</button>
         <button class="tabBtn" data-tab="music">Music</button>
-        <button class="tabBtn" data-tab="merch">Merch</button>
+        <button class="tabBtn" data-tab="connect">Connect</button>
+        <button class="tabBtn" data-tab="about">About</button>
         <button class="tabBtn" data-tab="updates">Updates</button>
       </div>
 
@@ -227,21 +238,13 @@
           <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35;">
             One direct home for Meda — no accounts, no tracking, no feed.
           </div>
-
           <div class="row" style="margin-top:10px;">
             <a class="btn" href="#" id="goMusic">🎵 Open Music</a>
-            <a class="btn secondary" href="#" id="goMerch">🛍️ Open Merch</a>
+            <a class="btn secondary" href="#" id="goConnect">🔗 Open Connect</a>
           </div>
-        </div>
 
-        <!-- Feedback panel (consistent feature) -->
-        <div class="panel" id="feedbackPanel" style="text-align:center; display:none;">
-          <div style="font-weight:900; font-size:14px;">Pilot feedback</div>
-          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35;">
-            Fans can send feedback directly (opens their email app).
-          </div>
           <div class="row" style="margin-top:10px;">
-            <a class="btn secondary" href="#" id="sendFeedback">✉️ Send feedback</a>
+            <a class="btn secondary" href="#" id="goFeedback">✉️ Send feedback</a>
           </div>
         </div>
       </div>
@@ -253,10 +256,23 @@
         </div>
       </div>
 
-      <div id="tab-merch" class="section">
+      <div id="tab-connect" class="section">
         <div class="panel">
-          <div style="font-weight:900; font-size:14px; text-align:center;">Merch</div>
-          <div class="list" id="merchList"></div>
+          <div style="font-weight:900; font-size:14px; text-align:center;">Connect</div>
+          <div class="list" id="connectList"></div>
+        </div>
+      </div>
+
+      <div id="tab-about" class="section">
+        <div class="panel" style="text-align:center;">
+          <div style="font-weight:900; font-size:14px;" id="aboutTitle">About</div>
+          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.45;" id="aboutText">
+            This is Meda Monsta’s official pilot app. No logins, no tracking, no feed — just direct links and updates.
+          </div>
+
+          <div class="row" style="margin-top:12px;">
+            <a class="btn" href="#" id="feedbackBtn">✉️ Send feedback</a>
+          </div>
         </div>
       </div>
 
@@ -268,7 +284,7 @@
       </div>
 
       <div id="status" class="status">Loading…</div>
-      <div class="mini">Pilot 4 • No logins • No tracking • Links + simple sections</div>
+      <div class="mini">Pilot 4 • No logins • No tracking • Direct links + simple sections</div>
     </div>
   </div>
 
@@ -278,9 +294,12 @@
   const sections = {
     home: document.getElementById('tab-home'),
     music: document.getElementById('tab-music'),
-    merch: document.getElementById('tab-merch'),
+    connect: document.getElementById('tab-connect'),
+    about: document.getElementById('tab-about'),
     updates: document.getElementById('tab-updates')
   };
+
+  let feedbackMailto = '';
 
   function setStatus(t){ statusEl.textContent = t; }
   function showTab(tab){
@@ -291,7 +310,7 @@
 
   tabs.forEach(btn => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
   document.getElementById('goMusic').addEventListener('click', (e) => { e.preventDefault(); showTab('music'); });
-  document.getElementById('goMerch').addEventListener('click', (e) => { e.preventDefault(); showTab('merch'); });
+  document.getElementById('goConnect').addEventListener('click', (e) => { e.preventDefault(); showTab('connect'); });
 
   function escapeHtml(s){
     return String(s || '')
@@ -308,7 +327,7 @@
       const row = document.createElement('div');
       row.className = 'item';
       row.innerHTML = `
-        <div style="min-width:0;">
+        <div class="itemLeft">
           <div class="itemTitle">${escapeHtml(x.title || 'Link')}</div>
           <div class="itemSub">${escapeHtml(x.url || '')}</div>
         </div>
@@ -324,7 +343,7 @@
       const row = document.createElement('div');
       row.className = 'item';
       row.innerHTML = `
-        <div style="min-width:0;">
+        <div class="itemLeft">
           <div class="itemTitle">${escapeHtml(u.title || 'Update')}</div>
           <div class="itemSub">${escapeHtml(u.text || '')}</div>
         </div>
@@ -334,12 +353,29 @@
     });
   }
 
-  function buildMailto(to, subject, body){
-    const t = (to || '').trim();
-    const s = encodeURIComponent(subject || '');
-    const b = encodeURIComponent(body || '');
-    // If "to" is empty, this becomes a draft with no recipient (safe fallback).
-    return `mailto:${encodeURIComponent(t)}?subject=${s}&body=${b}`;
+  function buildMailto(feedback){
+    const to = (feedback && feedback.email_to) ? String(feedback.email_to) : '';
+    const subject = feedback && feedback.subject ? feedback.subject : 'App Feedback';
+    const bodyHint = feedback && feedback.body_hint ? feedback.body_hint : 'Feedback:';
+    const params = new URLSearchParams();
+    params.set('subject', subject);
+    params.set('body', bodyHint);
+    // If "to" is empty, this will open a draft with no recipient (not desired).
+    return `mailto:${encodeURIComponent(to)}?${params.toString()}`;
+  }
+
+  function wireFeedbackButtons(){
+    const fb1 = document.getElementById('feedbackBtn');
+    const fb2 = document.getElementById('goFeedback');
+    const go = () => {
+      if(!feedbackMailto){
+        alert('Feedback email is not set in content.json.');
+        return;
+      }
+      window.location.href = feedbackMailto;
+    };
+    fb1.addEventListener('click', (e) => { e.preventDefault(); go(); });
+    fb2.addEventListener('click', (e) => { e.preventDefault(); go(); });
   }
 
   async function loadContent(){
@@ -351,34 +387,19 @@
 
       const profile = json.profile || {};
       document.getElementById('titleText').textContent = profile.name || 'Meda Monsta';
-      document.getElementById('taglineText').textContent = profile.tagline || 'Official app — music, merch, and updates.';
+      document.getElementById('taglineText').textContent = profile.tagline || 'Official app — music, updates, and direct links.';
 
       renderLinks(document.getElementById('musicList'), json.music_links, 'Open');
-      renderLinks(document.getElementById('merchList'), json.merch_links, 'Open');
+      renderLinks(document.getElementById('connectList'), json.connect_links, 'Open');
+
+      const about = json.about || {};
+      document.getElementById('aboutTitle').textContent = about.title || 'About';
+      document.getElementById('aboutText').textContent = about.text || '';
+
       renderUpdates(document.getElementById('updatesList'), json.updates);
 
-      // Feedback (email opens in user's mail app)
-      const fb = json.feedback || {};
-      const panel = document.getElementById('feedbackPanel');
-      const btn = document.getElementById('sendFeedback');
-
-      if (fb.enabled) {
-        panel.style.display = 'block';
-
-        const subject = fb.subject || 'App Feedback';
-        const hint = fb.body_hint || 'Type your feedback below.';
-        const body =
-          `${hint}\n\n---\n` +
-          `App: ${profile.name || 'Pilot 4'}\n` +
-          `Page: ${location.href}\n`;
-
-        const mailto = buildMailto(fb.email_to || '', subject, body);
-
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.location.href = mailto;
-        });
-      }
+      feedbackMailto = buildMailto(json.feedback || {});
+      wireFeedbackButtons();
 
       setStatus('Ready.');
     }catch(err){
