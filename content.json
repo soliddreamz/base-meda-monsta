@@ -1,15 +1,15 @@
 {
   "profile": {
     "name": "Meda Monsta",
-    "tagline": "Official app — music, merch, and updates."
+    "tagline": "Official app — music, updates, and direct links."
   },
   "music_links": [
     {
-      "title": "YouTube",
+      "title": "YouTube (Latest Video)",
       "url": "https://youtu.be/KlBKKDzdbzk?si=FFrJTeA2_DEdGCIg"
     }
   ],
-  "merch_links": [
+  "connect_links": [
     {
       "title": "Instagram",
       "url": "https://www.instagram.com/609meda/"
@@ -19,16 +19,19 @@
       "url": "https://www.facebook.com/realmeda/?ref=pro_upsell_xav_ig_profile_page_web"
     }
   ],
+  "about": {
+    "title": "About",
+    "text": "This is Meda Monsta’s official pilot app. No logins, no tracking, no feed — just direct links and updates."
+  },
   "updates": [
     {
-      "title": "New drop soon",
-      "text": "Stay tuned. This is the official place for updates."
+      "title": "Official updates",
+      "text": "New drops and announcements will appear here."
     }
   ],
   "feedback": {
-    "enabled": true,
-    "email_to": "soliddreamz@gamil.com",
+    "email_to": "soliddreamz@gmail.com",
     "subject": "Meda Monsta App Feedback (Pilot 4)",
-    "body_hint": "Type your feedback below. Include a screenshot link if needed."
+    "body_hint": "What should we improve? (Add details + screenshots if possible.)"
   }
 }
