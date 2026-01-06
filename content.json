@@ -1,53 +1,17 @@
 {
-  "tracks": [
-    {
-      "title": "Alamo Mix Vol. 1",
-      "subtitle": "LiveMixtapes • Classic Set",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/who-got-the-juice-1",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "Alamo Presents",
-      "subtitle": "LiveMixtapes • Street Heat",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/lucky-ozzy-road-2-riches",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "Eness — The Take Over",
-      "subtitle": "LiveMixtapes • External Mix",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/eness-the-take-over",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "Philly Season 4",
-      "subtitle": "LiveMixtapes • External Mix",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/philly-season-4",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "AR-AB — MUD MUZIK 2",
-      "subtitle": "Motivation Under Distress • LiveMixtapes",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/ar-ab-mud-muzik-2-motivation-under-distress",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "AR-AB — MUD MUSIK",
-      "subtitle": "Motivation Under Distress • LiveMixtapes",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/ar-ab-mud-musik-motivation-under-distress",
-      "tag": "LiveMixtapes"
-    },
-    {
-      "title": "ATL 2 Philly — The Mixtape",
-      "subtitle": "LiveMixtapes • External Mix",
-      "external": true,
-      "url": "https://livemixtapes.com/mixtape/atl-2-philly-the-mixtape",
-      "tag": "LiveMixtapes"
-    }
+  "profile": {
+    "name": "Meda Monsta",
+    "tagline": "Official app — music, merch, and updates."
+  },
+  "music_links": [
+    { "title": "Listen on Spotify", "url": "https://example.com" },
+    { "title": "Listen on Apple Music", "url": "https://example.com" },
+    { "title": "YouTube", "url": "https://example.com" }
+  ],
+  "merch_links": [
+    { "title": "Shop Merch", "url": "https://example.com" }
+  ],
+  "updates": [
+    { "title": "New drop soon", "text": "Stay tuned. This is the official place for updates." }
   ]
 }
