@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'pilot4-meda-v10';
+const CACHE_VERSION = 'pilot4-meda-v11';
 const CACHE_NAME = `base-cache-${CACHE_VERSION}`;
 
 const ASSETS = [
