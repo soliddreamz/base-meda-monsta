@@ -3,33 +3,26 @@
     "name": "Meda Monsta",
     "tagline": "Official app — music, merch, and updates."
   },
-
   "music_links": [
     {
-      "title": "Listen on Spotify",
-      "url": "https://open.spotify.com"
-    },
-    {
-      "title": "Listen on Apple Music",
-      "url": "https://music.apple.com"
-    },
-    {
-      "title": "YouTube",
-      "url": "https://www.youtube.com/watch?v=KlBKKDzdbzk"
+      "title": "YouTube (Latest Video)",
+      "url": "https://youtu.be/KlBKKDzdbzk?si=FFrJTeA2_DEdGCIg"
     }
   ],
-
   "merch_links": [
     {
-      "title": "Official Links",
-      "url": "https://allmylinks.com/609meda"
+      "title": "Instagram",
+      "url": "https://www.instagram.com/609meda/"
+    },
+    {
+      "title": "Facebook",
+      "url": "https://www.facebook.com/realmeda/"
     }
   ],
-
   "updates": [
     {
-      "title": "Official App Live",
-      "text": "This is the only official Meda Monsta app. Links are direct and verified."
+      "title": "AllMyLinks temporarily disabled",
+      "text": "AllMyLinks redirect links are showing 404 in the in-app browser. We’ll swap back once we have clean working links."
     }
   ]
 }
