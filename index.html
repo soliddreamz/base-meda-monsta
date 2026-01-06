@@ -87,14 +87,12 @@
   .section{ display:none; text-align:left; }
   .section.active{ display:block; }
 
-  /* 🔒 SYSTEM LOCK: clip children to rounded card */
   .panel{
     margin-top:10px;
     border:1px solid rgba(255,255,255,0.10);
     background:rgba(0,0,0,0.16);
     border-radius:18px;
     padding:12px;
-    overflow:hidden;
   }
 
   .row{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
@@ -133,6 +131,7 @@
     border-radius:18px;
     background:rgba(255,255,255,0.04);
     border:1px solid rgba(255,255,255,0.10);
+    overflow:hidden; /* lock pill inside card */
   }
   .itemTitle{
     font-weight:900;
@@ -143,7 +142,7 @@
     margin-top:2px;
     font-size:12px;
     color:rgba(234,241,255,0.70);
-    word-break:break-all;
+    word-break:break-word;
   }
   .pill{
     font-size:11px;
@@ -154,6 +153,7 @@
     background:rgba(0,0,0,0.18);
     color:rgba(234,241,255,0.82);
     flex:0 0 auto;
+    text-decoration:underline;
   }
 
   .badge{
@@ -227,9 +227,21 @@
           <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35;">
             One direct home for Meda — no accounts, no tracking, no feed.
           </div>
+
           <div class="row" style="margin-top:10px;">
             <a class="btn" href="#" id="goMusic">🎵 Open Music</a>
             <a class="btn secondary" href="#" id="goMerch">🛍️ Open Merch</a>
+          </div>
+        </div>
+
+        <!-- Feedback panel (consistent feature) -->
+        <div class="panel" id="feedbackPanel" style="text-align:center; display:none;">
+          <div style="font-weight:900; font-size:14px;">Pilot feedback</div>
+          <div style="margin-top:6px; color:rgba(234,241,255,0.72); font-size:13px; line-height:1.35;">
+            Fans can send feedback directly (opens their email app).
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <a class="btn secondary" href="#" id="sendFeedback">✉️ Send feedback</a>
           </div>
         </div>
       </div>
@@ -296,7 +308,7 @@
       const row = document.createElement('div');
       row.className = 'item';
       row.innerHTML = `
-        <div>
+        <div style="min-width:0;">
           <div class="itemTitle">${escapeHtml(x.title || 'Link')}</div>
           <div class="itemSub">${escapeHtml(x.url || '')}</div>
         </div>
@@ -312,7 +324,7 @@
       const row = document.createElement('div');
       row.className = 'item';
       row.innerHTML = `
-        <div>
+        <div style="min-width:0;">
           <div class="itemTitle">${escapeHtml(u.title || 'Update')}</div>
           <div class="itemSub">${escapeHtml(u.text || '')}</div>
         </div>
@@ -320,6 +332,14 @@
       `;
       listEl.appendChild(row);
     });
+  }
+
+  function buildMailto(to, subject, body){
+    const t = (to || '').trim();
+    const s = encodeURIComponent(subject || '');
+    const b = encodeURIComponent(body || '');
+    // If "to" is empty, this becomes a draft with no recipient (safe fallback).
+    return `mailto:${encodeURIComponent(t)}?subject=${s}&body=${b}`;
   }
 
   async function loadContent(){
@@ -336,6 +356,29 @@
       renderLinks(document.getElementById('musicList'), json.music_links, 'Open');
       renderLinks(document.getElementById('merchList'), json.merch_links, 'Open');
       renderUpdates(document.getElementById('updatesList'), json.updates);
+
+      // Feedback (email opens in user's mail app)
+      const fb = json.feedback || {};
+      const panel = document.getElementById('feedbackPanel');
+      const btn = document.getElementById('sendFeedback');
+
+      if (fb.enabled) {
+        panel.style.display = 'block';
+
+        const subject = fb.subject || 'App Feedback';
+        const hint = fb.body_hint || 'Type your feedback below.';
+        const body =
+          `${hint}\n\n---\n` +
+          `App: ${profile.name || 'Pilot 4'}\n` +
+          `Page: ${location.href}\n`;
+
+        const mailto = buildMailto(fb.email_to || '', subject, body);
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = mailto;
+        });
+      }
 
       setStatus('Ready.');
     }catch(err){
